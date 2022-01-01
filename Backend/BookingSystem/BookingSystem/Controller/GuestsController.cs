@@ -17,92 +17,56 @@ namespace BookingSystem.Controller
     {
         private readonly GuestContext _context;
 
-        public GuestsController(GuestContext context)
-        {
+        public GuestsController(GuestContext context) {
             _context = context;
         }
 
-        // GET: api/Guests
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Guest>>> GetGuests()
-        {
+        // POST: api/Guests/create
+        [HttpPost("create")]
+        public async Task<ActionResult<Guest>> PostGuest(Guest guest) {
+            _context.Guests.Add(guest);
+            await _context.SaveChangesAsync();
+            return CreatedAtAction(nameof(GetGuest), new { id = guest.Id }, guest);
+        }
+
+        // GET: api/Guests/all
+        [HttpGet("all")]
+        public async Task<ActionResult<IEnumerable<Guest>>> GetGuests() {
             return await _context.Guests.ToListAsync();
         }
 
-        // GET: api/Guests/5
+        // GET: api/Guests/{id}
         [HttpGet("{id}")]
-        public async Task<ActionResult<Guest>> GetGuest(int id)
-        {
+        public async Task<ActionResult<Guest>> GetGuest(int id) {
             var guest = await _context.Guests.FindAsync(id);
-
-            if (guest == null)
-            {
-                return NotFound();
-            }
-
+            if (guest == null){ return NotFound("Guest does not exist within Database."); }
             return guest;
         }
 
-        // PUT: api/Guests/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutGuest(int id, Guest guest)
-        {
-            if (id != guest.Id)
-            {
-                return BadRequest();
-            }
-
+        // PUT: api/Guests/update/{id}
+        [HttpPut("update/{id}")]
+        public async Task<IActionResult> PutGuest(int id, Guest guest) {
+            if (id != guest.Id) { return BadRequest("Identifier does not match."); }
             _context.Entry(guest).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
+            try { await _context.SaveChangesAsync(); }
+            catch (DbUpdateConcurrencyException) {
+                if (!GuestExists(id)) { return NotFound("Guest does not exist within Database."); }
+                else { throw; }
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!GuestExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
             return NoContent();
         }
 
-        // POST: api/Guests
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Guest>> PostGuest(Guest guest)
-        {
-            _context.Guests.Add(guest);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetGuest", new { id = guest.Id }, guest);
-        }
-
-        // DELETE: api/Guests/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteGuest(int id)
-        {
+        // DELETE: api/Guests/remove/{id}
+        [HttpDelete("remove/{id}")]
+        public async Task<IActionResult> DeleteGuest(int id) {
             var guest = await _context.Guests.FindAsync(id);
-            if (guest == null)
-            {
-                return NotFound();
-            }
-
+            if (guest == null) { return NotFound("Guest does not exist within Database."); }
             _context.Guests.Remove(guest);
             await _context.SaveChangesAsync();
-
             return NoContent();
         }
 
-        private bool GuestExists(int id)
-        {
+        private bool GuestExists(int id){
             return _context.Guests.Any(e => e.Id == id);
         }
     }
