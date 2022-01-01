@@ -1,3 +1,6 @@
+using BookingSystem.Context;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -10,6 +13,12 @@ builder.Services.AddCors(options => {
         .WithOrigins("http://localhost:3000", "https://appname.azurestaticapps.net"); //just in case you want to port project to Azure.
     });
 });
+
+//Add Model Context Service to Database
+builder.Services.AddDbContext<GuestContext>
+    (options => options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection")
+    ));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
