@@ -1,10 +1,14 @@
+import React from 'react';
+import SiteHeader from '../Components/SiteHeader';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      
-    </div>
+    <React.Fragment>
+      <div className="app-main">
+        <SiteHeader />
+      </div>
+    </React.Fragment>
   );
 }
 
