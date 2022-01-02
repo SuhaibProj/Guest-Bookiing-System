@@ -11,7 +11,6 @@ A Small Business web interface featuring a Web API which allows for guests to le
 #### Need Microsoft SQL Server Management Studio with server naming convention being 'localhost' port 7077 in launchSettings
 
 ## FrontEnd: Install React Dependancies for Material UI + React Navigation (shown Below)
-#### npx create-react-app my-app
 #### npm install react-router-dom@5
 #### npm install @mui/material @emotion/react @emotion/styled
 #### npm install @mui/icons-material
