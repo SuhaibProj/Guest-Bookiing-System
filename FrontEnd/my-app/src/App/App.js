@@ -9,6 +9,7 @@ import ContactPageRoundedIcon from '@mui/icons-material/ContactPageRounded';
 import { Button, TextField } from '@mui/material';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
+import SendIcon from '@mui/icons-material/Send';
 
 
 
@@ -22,6 +23,11 @@ export default function App() {
     comments: '',
     rating: 0,
   });
+
+  const [nameError, setNameError] = useState(false);
+  const [streetAddressError, setStreetAddressError] = useState(false);
+  const [postCodeError, setPostCodeError] = useState(false);
+  const [phoneNumberError, setPhoneNumberError] = useState(false);
 
   const [InputData, setFormData] = useState(initialFormData);
 
@@ -39,6 +45,12 @@ export default function App() {
 
   const handleSubmit = (e) => { //event handle for button submit
     e.preventDefault();
+
+    const emptyField = "Information is Required";
+    if (InputData.name == '') { setNameError(true); }
+    if (InputData.streetAddress == ''){ setStreetAddressError(true); }
+    if (InputData.postCode == ''){ setPostCodeError(true); }
+    if (InputData.phoneNumber == ''){ setPhoneNumberError(true); }
 
     const databaseCreate = {
         id: 0,
@@ -58,7 +70,7 @@ export default function App() {
     })
     .then((response) => response.json())
     .then((responseJSON) => {
-        console.log(responseJSON)
+        console.log(responseJSON);
     })
     .catch((error) => {
         console.log(error);
@@ -76,34 +88,37 @@ export default function App() {
             Also be sure to let us know how your day was in the Review Section. Thanks." 
             icon = {< ContactPageRoundedIcon fontSize='large'/>} />
 
-          <div style={{width:'1000px', paddingLeft:'300px',paddingTop:'50px'}}>
-            <Typography>Full Name:</Typography>
-            <TextField value={InputData.name} required label="Required" placeholder='Full Name' type='text' name='name'
+          <div style={{width:'750px', paddingLeft:'100px',  paddingTop:'75px'}}>
+            <Typography>Your Details:</Typography><br />
+
+            <TextField required label="Full Name" error={nameError} fullWidth value={InputData.name} type='text' name='name'
                onChange = {handleChange}>
             </TextField><br /><br />
-            <Typography>Street Address:</Typography>
-            <TextField value={InputData.streetAddress} required label="Required" placeholder='Street Address' type='text' name='streetAddress'
-              onChange = {handleChange}>
-            </TextField><br /><br />
-            <Typography>Post Code:</Typography>
-            <TextField value={InputData.postCode} required label="Required" placeholder='Post Code' type='text' name='postCode'
-              onChange = {handleChange}>
-            </TextField><br /><br />
-            <Typography>Phone Number:</Typography>
-            <TextField value={InputData.phoneNumber} required label="Required" placeholder='Phone Number' type='text' name='phoneNumber'
-              onChange = {handleChange}>
-            </TextField><br /><br />
-            <Typography>Tell us a little about your day:</Typography>
-            <TextField value={InputData.comments} placeholder='Comments' type='text' name='comments'
+            
+            <TextField required label="Street Address" error={streetAddressError} fullWidth value={InputData.streetAddress} type='text' name='streetAddress'
               onChange = {handleChange}> 
             </TextField><br /><br />
-            <Typography>Give us a Rating:</Typography>
-            <Rating defaultValue={0} value={InputData.rating} type='text'
-              name='rating' max={10} onChange={handleChange}/>
+            
+            <TextField required label="Post Code" error={postCodeError} fullWidth value={InputData.postCode} type='text' name='postCode'
+              onChange = {handleChange}>
+            </TextField><br /><br />
+            
+            <TextField required label="Phone Number" error={phoneNumberError} fullWidth value={InputData.phoneNumber} type='number' name='phoneNumber'
+              onChange = {handleChange}>
+            </TextField><br /><br />
+            <br />
+            
+            <Typography>Your Review is always appreciated:</Typography><br />
 
-            <br /> <br />
-            <Button style={{paddingLeft:'100px', paddingRight:'100px'}}
-              variant='contained' onClick={handleSubmit}>Submit</Button>
+            <Rating defaultValue={0} value={InputData.rating} size="large"
+              name='rating' max={10} onChange={handleChange}/><br /> <br />
+
+            <TextField fullWidth multiline rows={9} value={InputData.comments} placeholder='Comments' type='text' name='comments'
+              onChange = {handleChange}> 
+            </TextField><br /><br />
+
+            <Button fullWidth style={{padding:'20px'}}
+              variant='contained' endIcon={<SendIcon />} onClick={handleSubmit}>Submit</Button>
           </div>
         </div>
       </React.Fragment> 
