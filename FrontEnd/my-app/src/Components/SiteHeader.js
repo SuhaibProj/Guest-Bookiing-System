@@ -53,15 +53,6 @@ export default function SiteHeader(){
         <div>
             <AppBar position="static">
             <Toolbar style={{backgroundColor:"#FFF"}}>
-              <IconButton
-                  size="large"
-                  edge="start"
-                  backgroundColor="black"
-                  aria-label="open drawer"
-                  sx={{ mr: 2 }}
-              >
-                  <MenuIcon />
-              </IconButton>
               <Typography
                   variant="h6"
                   noWrap
@@ -69,7 +60,7 @@ export default function SiteHeader(){
                   component="div"
                   sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
               >
-                  Contact
+                  Guest Booking
               </Typography>
               <Search>
                   <SearchIconWrapper>
