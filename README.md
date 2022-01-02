@@ -1,4 +1,4 @@
-# Guest-Bookiing-System:
+# Guest-Booking-System:
 A Small Business web interface featuring a Web API which allows for guests to leave personal details - name, address, phone number, comments and review so they may be contacted at later date.
 
 ### Utilized .NET6.0
