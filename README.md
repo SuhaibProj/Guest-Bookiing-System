@@ -7,8 +7,8 @@ A Small Business web interface featuring a Web API which allows for guests to le
 ## Set-up:
 
 ## Backend: Need SSMS and VS Running.
-### VS2022 (preferred for .NET 6.0 support)
-### Need Microsoft SQL Server Management Studio with server naming convention being 'localhost' port 7077 in launchSettings
+#### VS2022 (preferred for .NET 6.0 support)
+#### Need Microsoft SQL Server Management Studio with server naming convention being 'localhost' port 7077 in launchSettings
 
 ### FrontEnd: Install React Dependancies for Material UI + React Navigation (shown Below)
 #### npx create-react-app my-app
