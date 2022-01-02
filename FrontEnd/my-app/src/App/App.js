@@ -12,7 +12,6 @@ import Typography from '@mui/material/Typography';
 import SendIcon from '@mui/icons-material/Send';
 
 
-
 export default function App() {
   const initialFormData = ({
     id: 0,
@@ -47,10 +46,10 @@ export default function App() {
     e.preventDefault();
 
     const emptyField = "Information is Required";
-    if (InputData.name == '') { setNameError(true); }
-    if (InputData.streetAddress == ''){ setStreetAddressError(true); }
-    if (InputData.postCode == ''){ setPostCodeError(true); }
-    if (InputData.phoneNumber == ''){ setPhoneNumberError(true); }
+    if (InputData.name === '') { setNameError(true); }
+    if (InputData.streetAddress === ''){ setStreetAddressError(true); }
+    if (InputData.postCode === ''){ setPostCodeError(true); }
+    if (InputData.phoneNumber === ''){ setPhoneNumberError(true); }
 
     const databaseCreate = {
         id: 0,
